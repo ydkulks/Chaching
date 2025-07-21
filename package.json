@@ -12,10 +12,13 @@
     "start-stdio": "node dist/stdio.js"
   },
   "dependencies": {
-    "zod": "3.24.4",
-    "xmcp": "latest"
+    "dotenv": "^17.2.0",
+    "pg": "^8.16.3",
+    "xmcp": "latest",
+    "zod": "3.24.4"
   },
   "devDependencies": {
+    "@types/pg": "^8.15.4",
     "swc-loader": "^0.2.6"
   },
   "main": "./dist/stdio.js",
