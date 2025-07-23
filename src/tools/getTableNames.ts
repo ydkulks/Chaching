@@ -7,7 +7,7 @@ import {
 } from "xmcp";
 
 // export const schema = {
-//   database: z.string().describe("The name of the database to list")
+//   database: z.string().describe("The name of the database to list").optional()
 // }
 
 export const metadata: ToolMetadata = {
@@ -29,7 +29,7 @@ export default async function getTableNames(): Promise<{ content: Array<any> }> 
   try {
     client = await dbPool.connect();
     const result: QueryResult<any> = await client.query("SELECT * FROM pg_catalog.pg_tables WHERE schemaname = 'public';");
-    const tableNames: any = result.rows.map(row => row.tablename);
+    const tableNames: string[] = result.rows.map(row => row.tablename);
 
     return {
       content: [
@@ -38,8 +38,10 @@ export default async function getTableNames(): Promise<{ content: Array<any> }> 
           text: "Successfully retrieved the tables",
         },
         {
-          type: "json",
-          json: { tables: tableNames }, // Provide structured data
+          // type: "json",
+          // json: { tables: tableNames }, // Provide structured data
+          type: "text",
+          text: "Table Names: " + JSON.stringify(tableNames, null, 2),
         },
       ],
     };
